@@ -7,9 +7,10 @@ import { HeroesComponent } from './components/heroes/heroes.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, UpperCasePipe } from '@angular/common';
 import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
+import { MessagesComponent } from './components/messages/messages.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MessagesComponent],
   imports: [
     BrowserModule,
     FormsModule,
