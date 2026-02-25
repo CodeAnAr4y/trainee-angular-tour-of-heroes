@@ -8,15 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule, UpperCasePipe } from '@angular/common';
 import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [AppComponent, MessagesComponent],
+  declarations: [AppComponent, MessagesComponent, DashboardComponent, HeroesComponent, HeroDetailComponent],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
-    HeroesComponent,
-    HeroDetailComponent,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],
