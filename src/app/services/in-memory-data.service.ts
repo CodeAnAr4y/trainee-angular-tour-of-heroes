@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InMemoryDbService, RequestInfo } from 'angular-in-memory-web-api';
-import { Observable } from 'rxjs';
-import { HEROES } from '../mock-heroes';
+import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Hero } from '../hero';
 
 @Injectable({

@@ -10,7 +10,9 @@ import { HeroService } from '../../services/hero.service';
 export class HeroesComponent {
   heroes$ = this.heroService.heroes$;
 
-  constructor(private heroService: HeroService) {}
+  constructor(private heroService: HeroService) {
+    this.heroes$.subscribe((res) => console.log(res));
+  }
 
   add(name: string): void {
     name = name.trim();

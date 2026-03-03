@@ -35,7 +35,10 @@ export class HeroService {
     this.http
       .get<Hero[]>(this.heroesUrl)
       .pipe(catchError(() => of([])))
-      .subscribe((heroes) => this.heroesSubject.next(heroes));
+      .subscribe((heroes) => {
+        console.log('Heroes is:', heroes);
+        this.heroesSubject.next(heroes);
+      });
   }
 
   addHero(hero: Hero): Observable<Hero> {
