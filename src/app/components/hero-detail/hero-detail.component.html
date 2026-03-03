@@ -1,6 +1,7 @@
 <button type="button" (click)="goBack()">go back</button>
 
-<div *ngIf="hero$ | async as hero">
+@if (hero$ | async; as hero) {
+<div>
   <h2>{{ hero.name | uppercase }} Details</h2>
   <div>id: {{ hero.id }}</div>
   <div>
@@ -14,3 +15,4 @@
   </div>
   <button type="button" (click)="save(hero)">save</button>
 </div>
+}

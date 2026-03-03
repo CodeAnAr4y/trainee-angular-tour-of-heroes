@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location, NgIf, AsyncPipe, UpperCasePipe } from '@angular/common';
+import { Location, AsyncPipe, UpperCasePipe } from '@angular/common';
 import { Observable, switchMap, map } from 'rxjs';
 import { Hero } from '../../hero';
 import { HeroService } from '../../services/hero.service';
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './hero-detail.component.html',
   styleUrl: './hero-detail.component.css',
   standalone: true,
-  imports: [NgIf, FormsModule, AsyncPipe, UpperCasePipe],
+  imports: [FormsModule, AsyncPipe, UpperCasePipe],
 })
 export class HeroDetailComponent {
   hero$!: Observable<Hero | undefined>;
