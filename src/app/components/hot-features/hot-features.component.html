@@ -1,0 +1,3 @@
+<input type="text" #myInput (input)="input$.next(myInput.value)" />
+
+<p>{{textToDisplay$ | async}}</p>
