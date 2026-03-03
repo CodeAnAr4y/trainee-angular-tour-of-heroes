@@ -26,11 +26,14 @@ import {
 } from 'rxjs/operators';
 import { HeroService } from '../../services/hero.service';
 import { Hero } from '../../hero';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-hot-features',
   templateUrl: './hot-features.component.html',
   styleUrl: './hot-features.component.css',
+  standalone: true,
+  imports: [AsyncPipe],
 })
 export class HotFeaturesComponent implements OnInit, OnDestroy {
   heroes$ = this.heroService.heroes$.pipe(

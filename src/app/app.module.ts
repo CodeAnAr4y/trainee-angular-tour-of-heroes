@@ -18,8 +18,12 @@ import { HeroSearchComponent } from './components/hero-search/hero-search.compon
 import { HotFeaturesComponent } from './components/hot-features/hot-features.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
     MessagesComponent,
     DashboardComponent,
     HeroesComponent,
@@ -27,8 +31,6 @@ import { HotFeaturesComponent } from './components/hot-features/hot-features.com
     HeroSearchComponent,
     HotFeaturesComponent,
   ],
-  bootstrap: [AppComponent],
-  imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     importProvidersFrom(

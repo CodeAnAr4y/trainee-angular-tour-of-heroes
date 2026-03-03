@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import { Hero } from '../../hero';
 import { HeroService } from '../../services/hero.service';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrl: './heroes.component.css',
+  standalone: true,
+  imports: [NgFor, RouterLink, AsyncPipe],
 })
 export class HeroesComponent {
   heroes$ = this.heroService.heroes$;
