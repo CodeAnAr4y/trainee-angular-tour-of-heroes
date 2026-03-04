@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import {
@@ -9,12 +9,14 @@ import {
   tap,
 } from 'rxjs/operators';
 import { Hero } from '../hero';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeroService {
   private heroesUrl = 'api/heroes';
+  private messageService = inject(MessageService);
 
   private heroesSubject = new BehaviorSubject<Hero[]>([]);
   heroes$ = this.heroesSubject.asObservable();
@@ -24,6 +26,9 @@ export class HeroService {
   searchResults$ = this.searchTerms.pipe(
     debounceTime(300),
     distinctUntilChanged(),
+    tap((term) =>
+      term !== '' ? this.messageService.add(`searching "${term}"`) : term
+    ),
     switchMap((term) => this.searchHeroesRequest(term))
   );
 
@@ -38,6 +43,7 @@ export class HeroService {
       .subscribe((heroes) => {
         console.log('Heroes is:', heroes);
         this.heroesSubject.next(heroes);
+        this.messageService.add('Heroes loaded');
       });
   }
 
@@ -46,8 +52,14 @@ export class HeroService {
       tap((newHero) => {
         const current = this.heroesSubject.value;
         this.heroesSubject.next([...current, newHero]);
+        this.messageService.add(
+          `Hero added id: ${newHero.id}, name: ${newHero.name}`
+        );
       }),
-      catchError(() => of(hero))
+      catchError(() => {
+        this.messageService.add('Failed to add Hero');
+        return of(hero);
+      })
     );
   }
 
@@ -56,8 +68,12 @@ export class HeroService {
       tap(() => {
         const current = this.heroesSubject.value;
         this.heroesSubject.next(current.filter((h) => h.id !== id));
+        this.messageService.add(`Hero id: ${id} deleted`);
       }),
-      catchError(() => of(undefined))
+      catchError(() => {
+        this.messageService.add(`delete hero id: ${id} failed`);
+        return of(undefined);
+      })
     );
   }
 
@@ -68,8 +84,12 @@ export class HeroService {
         this.heroesSubject.next(
           current.map((h) => (h.id === updated.id ? updated : h))
         );
+        this.messageService.add(`hero id: ${updated.id} successfully updated`);
       }),
-      catchError(() => of(hero))
+      catchError(() => {
+        this.messageService.add(`failed to update hero ${hero.id}`);
+        return of(hero);
+      })
     );
   }
 
@@ -78,9 +98,7 @@ export class HeroService {
   }
 
   private searchHeroesRequest(term: string): Observable<Hero[]> {
-    if (!term.trim()) {
-      return of([]);
-    }
+    if (!term.trim()) return of([]);
 
     return this.http
       .get<Hero[]>(`${this.heroesUrl}/?name=${term}`)
