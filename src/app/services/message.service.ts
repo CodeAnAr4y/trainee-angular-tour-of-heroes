@@ -1,16 +1,19 @@
-import { Injectable } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MessageService {
-  messages: string[] = [];
+  private _messages = signal<string[]>([]);
+  public messages = this._messages.asReadonly();
 
-  add(message: string) {
-    this.messages.push(message);
+  public messageCounter = computed(() => this._messages().length);
+
+  public add(message: string) {
+    this._messages.update((msgs) => [...msgs, message]);
   }
 
-  clear() {
-    this.messages = [];
+  public clear() {
+    this._messages.set([]);
   }
 }
