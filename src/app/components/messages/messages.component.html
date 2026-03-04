@@ -5,8 +5,10 @@
   <button type="button" class="clear" (click)="messageService.clear()">
     Clear messages
   </button>
-  @for (message of messageService.messages(); track message) {
-  <div>{{ message }}</div>
+  @for (message of messageService.messages(); track message.id) {
+  <div>
+    <strong>{{ message.id }}:</strong> {{ message.message }}
+  </div>
   }
 </div>
 }

@@ -50,11 +50,6 @@ export class HeroService {
   }
 
   private loadHeroes(): void {
-    const cached = window.localStorage.getItem(this.STORAGE_KEY);
-    if (cached) {
-      this._heroes.set(JSON.parse(cached));
-      return;
-    }
     this.http
       .get<Hero[]>(this.heroesUrl)
       .pipe(catchError(() => of([])))
@@ -93,17 +88,18 @@ export class HeroService {
     );
   }
 
-  public updateHero(hero: Hero): Observable<Hero> {
-    return this.http.put<Hero>(`${this.heroesUrl}/${hero.id}`, hero).pipe(
-      tap((updated) => {
+  public updateHero(hero: Hero): Observable<any> {
+    return this.http.put(`${this.heroesUrl}/${hero.id}`, hero).pipe(
+      tap(() => {
         this._heroes.update((heroes) =>
           heroes.map((h) => (h.id === hero.id ? hero : h))
         );
-        this.messageService.add(`hero id: ${updated.id} successfully updated`);
+        this.messageService.add(`hero id: ${hero.id} successfully updated`);
       }),
-      catchError(() => {
+      catchError((err) => {
         this.messageService.add(`failed to update hero ${hero.id}`);
-        return of(hero);
+        console.error('Error detail:', err);
+        return throwError(() => err);
       })
     );
   }

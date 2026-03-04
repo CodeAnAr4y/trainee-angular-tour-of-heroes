@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from '../../services/message.service';
 
 @Component({
@@ -9,5 +9,5 @@ import { MessageService } from '../../services/message.service';
   imports: [],
 })
 export class MessagesComponent {
-  constructor(public messageService: MessageService) {}
+  messageService = inject(MessageService);
 }
