@@ -1,0 +1,5 @@
+@if (data()) {
+<div>Additional component</div>
+<div>{{ data()?.id }} - {{ data()?.name }}</div>
+<button (click)="emitData()">Emit</button>
+}
