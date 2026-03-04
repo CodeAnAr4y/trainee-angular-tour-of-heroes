@@ -104,6 +104,9 @@
   },
   "schematics": {
     "@schematics/angular:component": {
+      "standalone": true,
+      "skipTests": true,
+      "displayBlock": true,
       "type": "component"
     },
     "@schematics/angular:directive": {
