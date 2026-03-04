@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { HeroService } from '../../services/hero.service';
-import { Hero } from '../../hero';
-import { map, take } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HeroSearchComponent } from '../hero-search/hero-search.component';
 
@@ -11,10 +8,9 @@ import { HeroSearchComponent } from '../hero-search/hero-search.component';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
   standalone: true,
-  imports: [RouterLink, HeroSearchComponent, AsyncPipe],
+  imports: [RouterLink, HeroSearchComponent],
 })
 export class DashboardComponent {
-  protected heroes$ = this.heroService.heroes$.pipe(map((heroes) => heroes.slice(0, 4)));
-
-  constructor(private heroService: HeroService) {}
+  private heroService = inject(HeroService);
+  protected heroes = computed(() => this.heroService.heroes().slice(0, 4));
 }

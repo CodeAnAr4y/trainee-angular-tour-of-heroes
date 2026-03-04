@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Hero } from '../../hero';
 import { HeroService } from '../../services/hero.service';
 import { AsyncPipe } from '@angular/common';
@@ -9,12 +9,11 @@ import { RouterLink } from '@angular/router';
   templateUrl: './heroes.component.html',
   styleUrl: './heroes.component.css',
   standalone: true,
-  imports: [RouterLink, AsyncPipe],
+  imports: [RouterLink],
 })
 export class HeroesComponent {
-  protected heroes$ = this.heroService.heroes$;
-
-  constructor(private heroService: HeroService) {}
+  private heroService = inject(HeroService);
+  protected heroes = this.heroService.heroes;
 
   protected add(name: string): void {
     name = name.trim();

@@ -1,6 +1,6 @@
 <button type="button" (click)="goBack()">go back</button>
 
-@if (hero$ | async; as hero) {
+@if (hero(); as hero) {
 <div>
   <h2>{{ hero.name | uppercase }} Details</h2>
   <div>id: {{ hero.id }}</div>

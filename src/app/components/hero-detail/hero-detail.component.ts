@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, Signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location, AsyncPipe, UpperCasePipe } from '@angular/common';
 import { Observable, switchMap, map } from 'rxjs';
 import { Hero } from '../../hero';
 import { HeroService } from '../../services/hero.service';
 import { FormsModule } from '@angular/forms';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-hero-detail',
@@ -14,22 +15,18 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule, AsyncPipe, UpperCasePipe],
 })
 export class HeroDetailComponent {
-  protected hero$!: Observable<Hero | undefined>;
+  private route = inject(ActivatedRoute);
+  private heroService = inject(HeroService);
+  private location = inject(Location);
 
-  constructor(
-    private route: ActivatedRoute,
-    private heroService: HeroService,
-    private location: Location
-  ) {
-    this.hero$ = this.route.paramMap.pipe(
-      map((params) => Number(params.get('id'))),
-      switchMap((id) =>
-        this.heroService.heroes$.pipe(
-          map((heroes) => heroes.find((h) => h.id === id))
-        )
-      )
-    );
-  }
+  private idParam: Signal<number> = toSignal(
+    this.route.paramMap.pipe(map(p => Number(p.get('id')))), 
+    { initialValue: 0 }
+  );
+
+  protected hero = computed(() => 
+    this.heroService.heroes().find(h => h.id === this.idParam())
+  );
 
   protected goBack() {
     this.location.back();
