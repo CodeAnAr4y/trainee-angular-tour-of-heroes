@@ -17,5 +17,5 @@ import { CommonModule } from '@angular/common';
   imports: [RouterOutlet, RouterLink, MessagesComponent],
 })
 export class AppComponent {
-  title = 'Tour of Heroes';
+  protected readonly title = 'Tour of Heroes';
 }

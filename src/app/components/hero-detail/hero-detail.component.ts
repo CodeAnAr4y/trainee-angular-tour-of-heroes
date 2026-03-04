@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule, AsyncPipe, UpperCasePipe],
 })
 export class HeroDetailComponent {
-  hero$!: Observable<Hero | undefined>;
+  protected hero$!: Observable<Hero | undefined>;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,11 +31,11 @@ export class HeroDetailComponent {
     );
   }
 
-  goBack() {
+  protected goBack() {
     this.location.back();
   }
 
-  save(hero: Hero) {
+  protected save(hero: Hero) {
     this.heroService.updateHero(hero).subscribe(() => this.goBack());
   }
 }

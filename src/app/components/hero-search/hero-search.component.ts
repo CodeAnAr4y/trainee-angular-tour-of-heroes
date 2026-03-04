@@ -11,11 +11,11 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink, AsyncPipe],
 })
 export class HeroSearchComponent {
-  heroes$ = this.heroService.searchResults$;
+  protected heroes$ = this.heroService.searchResults$;
 
   constructor(private heroService: HeroService) {}
 
-  search(term: string) {
+  protected search(term: string) {
     this.heroService.search(term);
   }
 }

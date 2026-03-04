@@ -14,7 +14,7 @@ import { HeroSearchComponent } from '../hero-search/hero-search.component';
   imports: [RouterLink, HeroSearchComponent, AsyncPipe],
 })
 export class DashboardComponent {
-  heroes$ = this.heroService.heroes$.pipe(map((heroes) => heroes.slice(0, 4)));
+  protected heroes$ = this.heroService.heroes$.pipe(map((heroes) => heroes.slice(0, 4)));
 
   constructor(private heroService: HeroService) {}
 }

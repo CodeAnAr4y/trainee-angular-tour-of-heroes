@@ -12,20 +12,17 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink, AsyncPipe],
 })
 export class HeroesComponent {
-  heroes$ = this.heroService.heroes$;
+  protected heroes$ = this.heroService.heroes$;
 
-  constructor(private heroService: HeroService) {
-    this.heroes$.subscribe((res) => console.log(res));
-  }
+  constructor(private heroService: HeroService) {}
 
-  add(name: string): void {
+  protected add(name: string): void {
     name = name.trim();
     if (!name) return;
-
     this.heroService.addHero({ name } as Hero).subscribe();
   }
 
-  delete(hero: Hero): void {
+  protected delete(hero: Hero): void {
     this.heroService.deleteHero(hero.id).subscribe();
   }
 }

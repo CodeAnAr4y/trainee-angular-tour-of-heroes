@@ -19,11 +19,11 @@ export class HeroService {
   private messageService = inject(MessageService);
 
   private heroesSubject = new BehaviorSubject<Hero[]>([]);
-  heroes$ = this.heroesSubject.asObservable();
+  public heroes$ = this.heroesSubject.asObservable();
 
   private searchTerms = new BehaviorSubject<string>('');
 
-  searchResults$ = this.searchTerms.pipe(
+  public readonly searchResults$ = this.searchTerms.pipe(
     debounceTime(300),
     distinctUntilChanged(),
     tap((term) =>
@@ -47,7 +47,7 @@ export class HeroService {
       });
   }
 
-  addHero(hero: Hero): Observable<Hero> {
+  public addHero(hero: Hero): Observable<Hero> {
     return this.http.post<Hero>(this.heroesUrl, hero).pipe(
       tap((newHero) => {
         const current = this.heroesSubject.value;
@@ -63,7 +63,7 @@ export class HeroService {
     );
   }
 
-  deleteHero(id: number): Observable<void> {
+  public deleteHero(id: number): Observable<void> {
     return this.http.delete<void>(`${this.heroesUrl}/${id}`).pipe(
       tap(() => {
         const current = this.heroesSubject.value;
@@ -77,7 +77,7 @@ export class HeroService {
     );
   }
 
-  updateHero(hero: Hero): Observable<Hero> {
+  public updateHero(hero: Hero): Observable<Hero> {
     return this.http.put<Hero>(`${this.heroesUrl}/${hero.id}`, hero).pipe(
       tap((updated) => {
         const current = this.heroesSubject.value;
@@ -93,7 +93,7 @@ export class HeroService {
     );
   }
 
-  search(term: string): void {
+  public search(term: string): void {
     this.searchTerms.next(term);
   }
 

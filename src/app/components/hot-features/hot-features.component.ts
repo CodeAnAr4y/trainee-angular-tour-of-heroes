@@ -36,16 +36,16 @@ import { AsyncPipe } from '@angular/common';
   imports: [AsyncPipe],
 })
 export class HotFeaturesComponent implements OnInit, OnDestroy {
-  heroes$ = this.heroService.heroes$.pipe(
+  protected heroes$ = this.heroService.heroes$.pipe(
     finalize(() => console.log('stream completed'))
   );
   private destroy$ = new Subject<void>();
 
-  filteredHeroes$ = this.heroes$;
+  protected filteredHeroes$ = this.heroes$;
 
-  input$ = new Subject<string>();
+  protected input$ = new Subject<string>();
 
-  textToDisplay$ = this.input$.pipe(
+  protected textToDisplay$ = this.input$.pipe(
     debounceTime(500),
     distinctUntilChanged(),
     tap((val) => console.log(val))
@@ -53,7 +53,7 @@ export class HotFeaturesComponent implements OnInit, OnDestroy {
 
   constructor(private heroService: HeroService) {}
 
-  searchHero(id: number) {
+  private searchHero(id: number) {
     return this.heroes$.pipe(
       map((heroes) => heroes.filter((hero) => hero.id == id))
     );
