@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Hero } from '../../hero';
 import { HeroService } from '../../services/hero.service';
-import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({

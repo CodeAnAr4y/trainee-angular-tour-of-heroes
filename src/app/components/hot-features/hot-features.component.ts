@@ -25,7 +25,6 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 import { HeroService } from '../../services/hero.service';
-import { Hero } from '../../hero';
 import { AsyncPipe } from '@angular/common';
 
 @Component({

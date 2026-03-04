@@ -1,7 +1,7 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location, AsyncPipe, UpperCasePipe } from '@angular/common';
-import { Observable, switchMap, map } from 'rxjs';
+import { Location,UpperCasePipe } from '@angular/common';
+import { map } from 'rxjs';
 import { Hero } from '../../hero';
 import { HeroService } from '../../services/hero.service';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   templateUrl: './hero-detail.component.html',
   styleUrl: './hero-detail.component.css',
   standalone: true,
-  imports: [FormsModule, AsyncPipe, UpperCasePipe],
+  imports: [FormsModule, UpperCasePipe],
 })
 export class HeroDetailComponent {
   private route = inject(ActivatedRoute);

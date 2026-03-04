@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { HeroService } from '../../services/hero.service';
 import { RouterLink } from '@angular/router';
 import { HeroSearchComponent } from '../hero-search/hero-search.component';
