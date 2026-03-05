@@ -8,9 +8,10 @@ import { Hero } from '../hero';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const savedHeroes = window.localStorage.getItem('heroes');
+    const heroesArr = savedHeroes ? JSON.parse(savedHeroes) : null;
     const heroes: Hero[] =
-      savedHeroes && savedHeroes.length > 0
-        ? JSON.parse(savedHeroes)
+      heroesArr && heroesArr.length > 0
+        ? heroesArr
         : [
             { id: 12, name: 'Dr. Nice' },
             { id: 13, name: 'Bombasto' },
